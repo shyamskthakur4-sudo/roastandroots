@@ -184,9 +184,120 @@ export function ContactPage() {
 
 export function CartPage({ items, onUpdate }) {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
-  return <div className="pt-[116px]"><section className="mx-auto max-w-[1440px] px-5 py-20 lg:px-9 lg:py-28"><Breadcrumbs items={[{label:"Home",href:"/"},{label:"Cart"}]}/><div className="mt-9 grid gap-12 lg:grid-cols-[1fr_390px]"><div><SectionTitle eyebrow="Your bag" title="Ready when you are." /><div className="mt-10">{items.length===0?<div className="rounded-[26px] bg-[#edf2eb] p-10"><p className="text-xl font-semibold">Nothing here yet.</p><p className="mt-2 text-sm text-[#67736b]">Explore the collection and add a few favourites.</p><Link to="/shop" className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#0d1813] px-5 py-3 font-semibold text-white">Shop now <ArrowRight size={17}/></Link></div>:<div className="space-y-5">{items.map(item=><div key={item.id} className="grid gap-4 border-b border-[#dde2dc] pb-5 sm:grid-cols-[120px_1fr_auto] sm:items-center"><img src={item.image} alt="" className="h-28 w-28 rounded-2xl object-cover"/><div><Link to={`/product/${item.slug}`} className="text-lg font-semibold">{item.name}</Link><p className="mt-1 text-sm text-[#68736b]">{item.weight}</p><div className="mt-4 inline-flex items-center rounded-full border border-[#ccd4cc] bg-white"><button onClick={()=>onUpdate(item.id,-1)} className="grid size-9 place-items-center"><Minus size={14}/></button><span className="w-9 text-center text-sm">{item.qty}</span><button onClick={()=>onUpdate(item.id,1)} className="grid size-9 place-items-center"><Plus size={14}/></button></div></div><div className="text-lg font-semibold">{money(item.price*item.qty)}</div></div>)}</div>}</div>
-      <div className="h-fit rounded-[26px] border border-[#d6ddd6] bg-white p-7 lg:sticky lg:top-28"><p className="text-[10px] uppercase tracking-[.2em] text-[#778079]">Order summary</p><div className="mt-6 flex items-center justify-between border-b border-[#e0e5df] pb-4 text-sm"><span>Subtotal</span><span className="font-semibold">{money(subtotal)}</span></div><div className="mt-4 flex items-center justify-between border-b border-[#e0e5df] pb-4 text-sm"><span>Shipping</span><span className="font-semibold">{subtotal >= 499 ? "Free" : money(59)}</span></div><div className="mt-5 flex items-center justify-between text-xl font-semibold"><span>Total</span><span>{money(subtotal >= 499 ? subtotal : subtotal + (items.length ? 59 : 0))}</span></div><button disabled={!items.length} className="mt-6 w-full rounded-full bg-[#0d1813] px-5 py-4 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40">Checkout</button><div className="mt-4 text-center text-xs text-[#7c857e]">Secure checkout · Free shipping above ₹499</div></div>
-    </div></section></div>;
+  const shipping = !items.length ? 0 : subtotal >= 499 ? 0 : 59;
+  const total = subtotal + shipping;
+
+  return (
+    <div className="pt-[116px]">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 lg:px-9 lg:py-28">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Cart" }]} />
+
+        <div className="mt-9 grid gap-12 lg:grid-cols-[1fr_390px]">
+          <div>
+            <SectionTitle eyebrow="Your bag" title="Ready when you are." />
+
+            <div className="mt-10">
+              {items.length === 0 ? (
+                <div className="rounded-[26px] bg-[#edf2eb] p-10">
+                  <p className="text-xl font-semibold">Nothing here yet.</p>
+                  <p className="mt-2 text-sm text-[#67736b]">
+                    Explore the collection and add a few favourites.
+                  </p>
+                  <Link
+                    to="/shop"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#0d1813] px-5 py-3 font-semibold text-white"
+                  >
+                    Shop now <ArrowRight size={17} />
+                  </Link>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {items.map((item) => (
+                    <div
+                      key={item.id}
+                      className="grid gap-4 border-b border-[#dde2dc] pb-5 sm:grid-cols-[120px_1fr_auto] sm:items-center"
+                    >
+                      <img
+                        src={item.image}
+                        alt=""
+                        className="h-28 w-28 rounded-2xl object-cover"
+                      />
+
+                      <div>
+                        <Link
+                          to={`/product/${item.slug}`}
+                          className="text-lg font-semibold"
+                        >
+                          {item.name}
+                        </Link>
+                        <p className="mt-1 text-sm text-[#68736b]">{item.weight}</p>
+
+                        <div className="mt-4 inline-flex items-center rounded-full border border-[#ccd4cc] bg-white">
+                          <button
+                            onClick={() => onUpdate(item.id, -1)}
+                            className="grid size-9 place-items-center"
+                            aria-label={`Decrease ${item.name} quantity`}
+                          >
+                            <Minus size={14} />
+                          </button>
+                          <span className="w-9 text-center text-sm">{item.qty}</span>
+                          <button
+                            onClick={() => onUpdate(item.id, 1)}
+                            className="grid size-9 place-items-center"
+                            aria-label={`Increase ${item.name} quantity`}
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="text-lg font-semibold">
+                        {money(item.price * item.qty)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <aside className="h-fit rounded-[26px] border border-[#d6ddd6] bg-white p-7 lg:sticky lg:top-28">
+            <p className="text-[10px] uppercase tracking-[.2em] text-[#778079]">
+              Order summary
+            </p>
+
+            <div className="mt-6 flex items-center justify-between border-b border-[#e0e5df] pb-4 text-sm">
+              <span>Subtotal</span>
+              <span className="font-semibold">{money(subtotal)}</span>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between border-b border-[#e0e5df] pb-4 text-sm">
+              <span>Shipping</span>
+              <span className="font-semibold">
+                {shipping === 0 && items.length ? "Free" : money(shipping)}
+              </span>
+            </div>
+
+            <div className="mt-5 flex items-center justify-between text-xl font-semibold">
+              <span>Total</span>
+              <span>{money(total)}</span>
+            </div>
+
+            <button
+              disabled={!items.length}
+              className="mt-6 w-full rounded-full bg-[#0d1813] px-5 py-4 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Checkout
+            </button>
+
+            <div className="mt-4 text-center text-xs text-[#7c857e]">
+              Secure checkout · Free shipping above ₹499
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
+  );
 }
 
 export function SimplePage({ title, eyebrow, copy, children }) {
