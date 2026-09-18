@@ -59,12 +59,40 @@ export function HomePage({ onAdd }) {
       <Hero3D />
       <EditorialBand />
       <main>
-        <section className="mx-auto max-w-[1440px] px-5 py-24 lg:px-9 lg:py-32">
-          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <section className="relative overflow-hidden bg-[#f4f7f2] py-24 lg:py-36">
+          <div className="pointer-events-none absolute left-[-8rem] top-24 size-72 rounded-full border border-[#0d1813]/[.06]" />
+          <div className="pointer-events-none absolute right-[-7rem] bottom-10 size-96 rounded-full border border-[#d5aa55]/[.11]" />
+          <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
+            <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <SectionTitle eyebrow="Best selling products" title="The jars that disappear first." copy="A direct homage to the reference shop's bestselling grid — now presented with stronger hierarchy, richer motion and a more editorial product language." />
             <Link to="/shop" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold">See the full shop <ArrowRight size={18} /></Link>
+            </div>
+            <div className="mt-14 grid gap-x-8 gap-y-20 sm:grid-cols-2 lg:grid-cols-4 [perspective:1600px]">{products.slice(0, 4).map((p, i) => <ScrollDepth key={p.id} lift={90 - i * 14} rotate={i % 2 ? 2.4 : -2.4}><div className={i % 2 ? "pt-10" : ""}><ProductCard product={p} onAdd={onAdd} index={i} /></div></ScrollDepth>)}</div>
           </div>
-          <div className="mt-14 grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-4 [perspective:1400px]">{products.slice(0, 4).map((p, i) => <ScrollDepth key={p.id} lift={70 - i * 8} rotate={i % 2 ? 1.8 : -1.8}><ProductCard product={p} onAdd={onAdd} index={i} /></ScrollDepth>)}</div>
+        </section>
+
+        <section className="relative overflow-hidden bg-[#cfdccf] py-0">
+          <div className="mx-auto grid min-h-[88dvh] max-w-[1440px] items-center gap-14 px-5 py-24 lg:grid-cols-[.72fr_1.28fr] lg:px-9 lg:py-0">
+            <Reveal>
+              <div className="max-w-xl">
+                <p className="text-[10px] font-bold uppercase tracking-[.26em] text-[#5f6d63]">The ritual</p>
+                <h2 className="mt-4 text-5xl font-semibold leading-[.9] tracking-[-.07em] md:text-7xl">Not just a snack. A change of pace.</h2>
+                <p className="mt-7 max-w-md text-base leading-7 text-[#58675d]">Open the pouch. Hear the crunch. Slow the day down by one minute.</p>
+              </div>
+            </Reveal>
+            <ScrollDepth lift={120} rotate={-3.5} scale={1.08}>
+              <div className="relative mx-auto aspect-[.86] w-full max-w-[520px] [transform-style:preserve-3d]">
+                <motion.div className="absolute inset-[7%] overflow-hidden rounded-[34px] shadow-[0_40px_100px_rgba(13,24,19,.18)]">
+                  <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=1600&q=90" alt="Roasted nuts ready to serve" className="h-full w-full object-cover" />
+                </motion.div>
+                <motion.div style={{ transform: "translateZ(70px)" }} className="absolute right-[3%] top-[8%] rounded-[24px] bg-[#f7f4ea] px-5 py-4 text-[#15231b] shadow-2xl">
+                  <div className="text-[9px] font-bold uppercase tracking-[.2em] text-[#7a837c]">Small batch</div>
+                  <div className="mt-1 text-xl font-semibold tracking-[-.04em]">Roasted daily</div>
+                </motion.div>
+                <motion.div style={{ transform: "translateZ(95px)" }} className="absolute bottom-[9%] left-[2%] rounded-full border border-white/60 bg-white/35 px-5 py-3 text-[10px] font-bold uppercase tracking-[.19em] text-[#15231b] backdrop-blur-xl">100% thoughtful</motion.div>
+              </div>
+            </ScrollDepth>
+          </div>
         </section>
 
         <section className="bg-[#0d1712] py-24 text-white lg:py-32">
