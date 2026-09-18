@@ -95,22 +95,32 @@ export function HomePage({ onAdd }) {
           </div>
         </section>
 
-        <section className="bg-[#0d1712] py-24 text-white lg:py-32">
-          <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
-            <SectionTitle light eyebrow="Shop by mood" title="The four signature edits." copy="The same four collection families from the reference experience, rebuilt as large cinematic tiles with parallax depth." />
-            <div className="mt-14 grid gap-7 md:grid-cols-2 [perspective:1400px]">
-              {collections.map((item, index) => (
-                <ScrollDepth key={item.slug} lift={index === 0 ? 110 : 60} rotate={index % 2 ? 2.2 : -2.2} className={index === 0 ? "md:row-span-2" : ""}><TiltCard className="h-full">
-                  <Link to={`/collection/${item.slug}`} className={`group relative block overflow-hidden rounded-[24px] ${index === 0 ? "min-h-[610px]" : "min-h-[290px]"}`}>
-                    <Parallax src={item.image} alt={item.title} scale={1.1} y={26} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/12 to-transparent" />
-                    <div className="relative flex h-full min-h-[290px] flex-col justify-end p-7 lg:p-8">
-                      <p className="text-[10px] uppercase tracking-[0.2em] text-white/55">{item.eyebrow}</p>
-                      <h3 className="mt-2 max-w-lg text-3xl font-semibold leading-[1.02] tracking-[-0.05em] md:text-4xl">{item.title}</h3>
-                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">Shop now <ArrowRight size={17} /></span>
-                    </div>
-                  </Link>
-                  </TiltCard></ScrollDepth>
+        <section className="relative overflow-hidden bg-[#0d1712] py-24 text-white lg:py-36">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(213,170,85,.11),transparent_26%),radial-gradient(circle_at_85%_70%,rgba(104,142,115,.12),transparent_28%)]" />
+          <div className="relative mx-auto max-w-[1440px] px-5 lg:px-9">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+              <SectionTitle light eyebrow="Shop by mood" title="Four worlds. One roast philosophy." copy="Enter each collection as a different visual chapter rather than another row of product cards." />
+              <span className="text-[10px] uppercase tracking-[.25em] text-white/35">Scroll through the worlds</span>
+            </div>
+            <div className="mt-20 grid gap-9 md:grid-cols-2 [perspective:1800px]">
+              {collections.map((item,index)=>(
+                <ScrollDepth key={item.slug} lift={index % 2 ? 120 : 170} rotate={index % 2 ? 3 : -3} scale={1.04}>
+                  <TiltCard className={`group ${index===0 ? "md:row-span-2" : ""}`}>
+                    <Link to={`/collection/${item.slug}`} className={`relative block min-h-[330px] overflow-hidden rounded-[34px] border border-white/10 bg-white/[.035] shadow-[0_40px_100px_rgba(0,0,0,.22)] ${index===0 ? "md:min-h-[690px]" : "md:min-h-[330px]"}`}>
+                      <Parallax src={item.image} alt={item.title} scale={1.16} y={42} />
+                      <motion.div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent" whileHover={{scale:1.015}} />
+                      <div className="relative flex min-h-[330px] flex-col justify-end p-7 lg:p-10">
+                        <div className="flex items-center justify-between gap-5">
+                          <div>
+                            <p className="text-[9px] font-bold uppercase tracking-[.25em] text-[#e2be73]">{String(index+1).padStart(2,"0")} / {item.eyebrow}</p>
+                            <h3 className="mt-3 max-w-xl text-4xl font-semibold leading-[.9] tracking-[-.065em] md:text-6xl">{item.title}</h3>
+                          </div>
+                          <span className="grid size-14 shrink-0 place-items-center rounded-full border border-white/20 bg-white/8 backdrop-blur-md transition duration-500 group-hover:rotate-45 group-hover:bg-[#d5aa55] group-hover:text-[#0d1712]"><ArrowRight size={19}/></span>
+                        </div>
+                      </div>
+                    </Link>
+                  </TiltCard>
+                </ScrollDepth>
               ))}
             </div>
           </div>
