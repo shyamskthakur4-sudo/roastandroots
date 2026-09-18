@@ -34,6 +34,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 input::placeholder, textarea::placeholder { color: #8b958d; }
 
+.depth-section { transform-style: preserve-3d; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
