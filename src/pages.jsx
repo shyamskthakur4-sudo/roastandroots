@@ -21,8 +21,6 @@ function Hero3D() {
   return (
     <section ref={ref} className="relative min-h-[125dvh] overflow-hidden bg-[#0d1712] text-white">
       <motion.div style={{ y: imageY, scale: imageScale, rotate: imageRotate, transformPerspective: 1400 }} className="absolute inset-[-7%]">
-
-      <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=2200&q=92" alt="Premium roasted nuts arranged for a tasting" className="h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(211,174,92,.18),transparent_28%),linear-gradient(90deg,rgba(6,15,10,.95)_0%,rgba(6,15,10,.72)_34%,rgba(6,15,10,.14)_80%)]" />
