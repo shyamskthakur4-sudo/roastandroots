@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, MapPin, Minus, Plus, Quotes, Star, WhatsappLogo } from "@phosphor-icons/react";
-import { Breadcrumbs, Parallax, ProductCard, Reveal, SectionTitle, TiltCard, ValueProps } from "./components";
+import { Breadcrumbs, Parallax, ProductCard, Reveal, ScrollDepth, SectionTitle, TiltCard, ValueProps } from "./components";
 import { collections, money, products, reviews } from "./data";
 
 function Hero3D() {
@@ -57,15 +57,15 @@ export function HomePage({ onAdd }) {
             <SectionTitle eyebrow="Best selling products" title="The jars that disappear first." copy="A direct homage to the reference shop's bestselling grid — now presented with stronger hierarchy, richer motion and a more editorial product language." />
             <Link to="/shop" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold">See the full shop <ArrowRight size={18} /></Link>
           </div>
-          <div className="mt-14 grid gap-x-5 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">{products.slice(0, 4).map((p, i) => <ProductCard key={p.id} product={p} onAdd={onAdd} index={i} />)}</div>
+          <div className="mt-14 grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-4 [perspective:1400px]">{products.slice(0, 4).map((p, i) => <ScrollDepth key={p.id} lift={70 - i * 8} rotate={i % 2 ? 1.8 : -1.8}><ProductCard product={p} onAdd={onAdd} index={i} /></ScrollDepth>)}</div>
         </section>
 
         <section className="bg-[#0d1712] py-24 text-white lg:py-32">
           <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
             <SectionTitle light eyebrow="Shop by mood" title="The four signature edits." copy="The same four collection families from the reference experience, rebuilt as large cinematic tiles with parallax depth." />
-            <div className="mt-14 grid gap-5 md:grid-cols-2">
+            <div className="mt-14 grid gap-7 md:grid-cols-2 [perspective:1400px]">
               {collections.map((item, index) => (
-                <TiltCard key={item.slug} className={index === 0 ? "md:row-span-2" : ""}>
+                <ScrollDepth key={item.slug} lift={index === 0 ? 110 : 60} rotate={index % 2 ? 2.2 : -2.2} className={index === 0 ? "md:row-span-2" : ""}><TiltCard className="h-full">
                   <Link to={`/collection/${item.slug}`} className={`group relative block overflow-hidden rounded-[24px] ${index === 0 ? "min-h-[610px]" : "min-h-[290px]"}`}>
                     <Parallax src={item.image} alt={item.title} scale={1.1} y={26} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/12 to-transparent" />
@@ -75,7 +75,7 @@ export function HomePage({ onAdd }) {
                       <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">Shop now <ArrowRight size={17} /></span>
                     </div>
                   </Link>
-                </TiltCard>
+                  </TiltCard></ScrollDepth>
               ))}
             </div>
           </div>
@@ -101,8 +101,8 @@ export function HomePage({ onAdd }) {
 
         <section className="mx-auto max-w-[1440px] px-5 py-24 lg:px-9 lg:py-32">
           <SectionTitle eyebrow="Customer reviews" title="The crunch gets the last word." />
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {reviews.map((item, i) => <Reveal key={item.name} delay={i * .06}><TiltCard className="h-full"><blockquote className="flex h-full min-h-[290px] flex-col justify-between rounded-[22px] border border-[#d4dbd4] bg-white p-7"><div><Quotes size={25} className="text-[#d5aa55]" /><div className="mt-6 flex gap-1 text-[#d5aa55]">{Array.from({length:5}).map((_, n)=><Star key={n} size={13} weight="fill" />)}</div><p className="mt-5 text-xl font-medium leading-8 tracking-[-.03em]">“{item.quote}”</p></div><footer className="mt-8 flex items-end justify-between border-t border-[#e0e5e0] pt-4"><span className="text-sm font-semibold">{item.name}</span><span className="text-[10px] uppercase tracking-[.16em] text-[#7a847c]">{item.role}</span></footer></blockquote></TiltCard></Reveal>)}
+          <div className="mt-14 grid gap-7 md:grid-cols-3 [perspective:1400px]">
+            {reviews.map((item, i) => <ScrollDepth key={item.name} lift={55} rotate={i === 1 ? 2.2 : -1.6}><Reveal delay={i * .06}><TiltCard className="h-full"><blockquote className="flex h-full min-h-[290px] flex-col justify-between rounded-[22px] border border-[#d4dbd4] bg-white p-7"><div><Quotes size={25} className="text-[#d5aa55]" /><div className="mt-6 flex gap-1 text-[#d5aa55]">{Array.from({length:5}).map((_, n)=><Star key={n} size={13} weight="fill" />)}</div><p className="mt-5 text-xl font-medium leading-8 tracking-[-.03em]">“{item.quote}”</p></div><footer className="mt-8 flex items-end justify-between border-t border-[#e0e5e0] pt-4"><span className="text-sm font-semibold">{item.name}</span><span className="text-[10px] uppercase tracking-[.16em] text-[#7a847c]">{item.role}</span></footer></blockquote></TiltCard></Reveal></ScrollDepth>)}
           </div>
         </section>
       </main>
