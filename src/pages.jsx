@@ -128,11 +128,14 @@ export function HomePage({ onAdd }) {
 
         <ValueProps />
 
-        <section className="relative mx-auto max-w-[1440px] px-5 py-24 lg:px-9 lg:py-32">
-          <div className="grid items-center gap-12 lg:grid-cols-[.8fr_1.2fr]">
-            <SectionTitle eyebrow="Trending now" title="A little familiar. A lot more refined." copy="Bring the reference site's trending-product moment forward with the same four hero products, tighter spacing and a stronger editorial rhythm." />
-            <div className="grid grid-cols-2 gap-5">
-              {products.slice(0,4).map((p,i)=><ProductCard key={p.id} product={p} onAdd={onAdd} index={i} />)}
+        <section className="relative overflow-hidden bg-[#f4f7f2] py-28 lg:py-40">
+          <div className="mx-auto grid max-w-[1440px] items-center gap-16 px-5 lg:grid-cols-[.65fr_1.35fr] lg:px-9">
+            <div>
+              <SectionTitle eyebrow="Trending now" title="Pick your next ritual." copy="A product wall that moves with the page instead of sitting flat on it." />
+              <div className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.22em] text-[#6c776f]"><span className="size-2 rounded-full bg-[#d5aa55]" /> 04 current favourites</div>
+            </div>
+            <div className="grid grid-cols-2 gap-x-7 gap-y-16 [perspective:1700px]">
+              {products.slice(0,4).map((p,i)=><ScrollDepth key={p.id} lift={80 + i * 12} rotate={i%2 ? -2.2 : 2.2}><div className={i%2 ? "mt-12" : ""}><ProductCard product={p} onAdd={onAdd} index={i}/></div></ScrollDepth>)}
             </div>
           </div>
         </section>
