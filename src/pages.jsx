@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, CheckCircle, MapPin, Minus, Plus, Quote, Star, WhatsappLogo } from "@phosphor-icons/react";
+import { ArrowRight, MapPin, Minus, Plus, Quotes, Star, WhatsappLogo } from "@phosphor-icons/react";
 import { Breadcrumbs, Parallax, ProductCard, Reveal, SectionTitle, TiltCard, ValueProps } from "./components";
 import { collections, money, products, reviews } from "./data";
 
@@ -102,7 +102,7 @@ export function HomePage({ onAdd }) {
         <section className="mx-auto max-w-[1440px] px-5 py-24 lg:px-9 lg:py-32">
           <SectionTitle eyebrow="Customer reviews" title="The crunch gets the last word." />
           <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {reviews.map((item, i) => <Reveal key={item.name} delay={i * .06}><TiltCard className="h-full"><blockquote className="flex h-full min-h-[290px] flex-col justify-between rounded-[22px] border border-[#d4dbd4] bg-white p-7"><div><Quote size={25} className="text-[#d5aa55]" /><div className="mt-6 flex gap-1 text-[#d5aa55]">{Array.from({length:5}).map((_, n)=><Star key={n} size={13} weight="fill" />)}</div><p className="mt-5 text-xl font-medium leading-8 tracking-[-.03em]">“{item.quote}”</p></div><footer className="mt-8 flex items-end justify-between border-t border-[#e0e5e0] pt-4"><span className="text-sm font-semibold">{item.name}</span><span className="text-[10px] uppercase tracking-[.16em] text-[#7a847c]">{item.role}</span></footer></blockquote></TiltCard></Reveal>)}
+            {reviews.map((item, i) => <Reveal key={item.name} delay={i * .06}><TiltCard className="h-full"><blockquote className="flex h-full min-h-[290px] flex-col justify-between rounded-[22px] border border-[#d4dbd4] bg-white p-7"><div><Quotes size={25} className="text-[#d5aa55]" /><div className="mt-6 flex gap-1 text-[#d5aa55]">{Array.from({length:5}).map((_, n)=><Star key={n} size={13} weight="fill" />)}</div><p className="mt-5 text-xl font-medium leading-8 tracking-[-.03em]">“{item.quote}”</p></div><footer className="mt-8 flex items-end justify-between border-t border-[#e0e5e0] pt-4"><span className="text-sm font-semibold">{item.name}</span><span className="text-[10px] uppercase tracking-[.16em] text-[#7a847c]">{item.role}</span></footer></blockquote></TiltCard></Reveal>)}
           </div>
         </section>
       </main>
