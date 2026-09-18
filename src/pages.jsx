@@ -9,18 +9,25 @@ function Hero3D() {
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, reduce ? 1.02 : 1.12]);
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]);
-  const productY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 150]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 150]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, reduce ? 1.08 : 1.22]);
+  const imageRotate = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 1.5]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -110]);
+  const copyScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : .91]);
+  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -210]);
+  const orbX = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 80]);
+  const productY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 230]);
+  const productRotate = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -5]);
   return (
-    <section ref={ref} className="relative min-h-[100dvh] overflow-hidden bg-[#0d1712] text-white">
+    <section ref={ref} className="relative min-h-[125dvh] overflow-hidden bg-[#0d1712] text-white">
+      <motion.div style={{ y: imageY, scale: imageScale, rotate: imageRotate, transformPerspective: 1400 }} className="absolute inset-[-7%]">
+
       <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=2200&q=92" alt="Premium roasted nuts arranged for a tasting" className="h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(211,174,92,.18),transparent_28%),linear-gradient(90deg,rgba(6,15,10,.95)_0%,rgba(6,15,10,.72)_34%,rgba(6,15,10,.14)_80%)]" />
-      <motion.div style={{ y: orbY }} className="absolute right-[10%] top-[17%] size-44 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-[2px]" />
-      <motion.div style={{ y: productY }} className="absolute bottom-[10%] right-[9%] hidden w-[28vw] max-w-[390px] md:block">
+      <motion.div style={{ y: orbY, x: orbX }} className="absolute right-[12%] top-[15%] hidden size-64 rounded-full border border-white/10 bg-white/[0.035] shadow-[0_0_100px_rgba(213,170,85,.12)] backdrop-blur-[3px] lg:block" />
+      <motion.div style={{ y: productY, rotate: productRotate }} className="absolute bottom-[9%] right-[9%] hidden w-[28vw] max-w-[390px] md:block" >
         <div className="rounded-[28px] border border-white/15 bg-[#f3f6f1]/10 p-3 shadow-2xl backdrop-blur-md">
           <img src="https://images.unsplash.com/photo-1573246123716-6b178e9bfc09?auto=format&fit=crop&w=900&q=90" alt="Honey pepper cashews" className="aspect-[.8] w-full rounded-[22px] object-cover" />
           <div className="absolute inset-x-6 bottom-6 rounded-[18px] border border-white/15 bg-black/35 p-4 backdrop-blur-md">
@@ -29,15 +36,15 @@ function Hero3D() {
           </div>
         </div>
       </motion.div>
-      <div className="relative mx-auto flex min-h-[100dvh] max-w-[1440px] items-end px-5 pb-14 pt-32 lg:items-center lg:px-9 lg:pb-20">
+      <motion.div style={{ y: copyY, scale: copyScale }} className="relative mx-auto flex min-h-[125dvh] max-w-[1440px] items-center px-5 pb-24 pt-32 lg:px-9">
         <div className="max-w-4xl">
           <Reveal><div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e6c27a] backdrop-blur-md">Best quality products <span className="size-1 rounded-full bg-[#e6c27a]" /></div></Reveal>
           <Reveal delay={0.08}><h1 className="mt-6 text-[clamp(3.6rem,8.2vw,8.8rem)] font-semibold leading-[0.86] tracking-[-0.075em]">Rooted in purity.<br /><span className="text-[#deb76a]">Roasted to perfection.</span></h1></Reveal>
           <Reveal delay={0.16}><p className="mt-7 max-w-2xl text-base leading-7 text-white/66 md:text-lg">Hand-roasted premium dry fruits in small batches. No shortcuts. Just honest taste, thoughtful flavours and a better snack ritual.</p></Reveal>
           <Reveal delay={0.24}><div className="mt-9 flex flex-wrap items-center gap-3"><Link to="/shop" className="magnetic-button inline-flex items-center gap-3 rounded-full bg-[#e0b867] px-6 py-3.5 font-semibold text-[#101b15] transition hover:-translate-y-1">Explore the roasted collection <ArrowRight size={18} /></Link><Link to="/about" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-semibold text-white/90 backdrop-blur-md transition hover:bg-white/8">How we roast</Link></div></Reveal>
         </div>
-      </div>
-      <div className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-white/40 md:flex"><span className="h-px w-12 bg-white/20" /> Scroll to explore <span className="h-px w-12 bg-white/20" /></div>
+      </motion.div>
+      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-white/40 md:flex"><span className="h-px w-12 bg-white/20" /> Scroll to explore <span className="h-px w-12 bg-white/20" /></div>
     </section>
   );
 }
