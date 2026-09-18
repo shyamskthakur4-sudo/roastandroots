@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, CheckCircle, MapPin, Minus, Plus, Quote, Star, WhatsappLogo } from "@phosphor-icons/react";
@@ -7,7 +7,7 @@ import { collections, money, products, reviews } from "./data";
 
 function Hero3D() {
   const reduce = useReducedMotion();
-  const ref = useMemo(() => ({ current: null }), []);
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, reduce ? 1.02 : 1.12]);
