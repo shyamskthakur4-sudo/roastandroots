@@ -1,19 +1,4 @@
 @import "tailwindcss";
-
-:root {
-  font-family: "Trebuchet MS", "Arial", sans-serif;
-  color: #10231b;
-  background: #f4f6f1;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-}
-
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: #f4f6f1; }
-button, a, input { -webkit-tap-highlight-color: transparent; }
-::selection { background: #f0b44a; color: #10231b; }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-}
+:root{font-family:"Trebuchet MS","Arial",sans-serif;color:#10231b;background:#f4f6f1;font-synthesis:none;text-rendering:optimizeLegibility}
+html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:#f4f6f1}button,a,input{-webkit-tap-highlight-color:transparent}::selection{background:#f0b44a;color:#10231b}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
