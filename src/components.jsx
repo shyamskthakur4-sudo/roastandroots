@@ -114,6 +114,8 @@ function CartIcon({ count, onClick }) {
   );
 }
 
+function PromoBar() { return <div className="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-[#d5aa55] px-4 py-2 text-center text-[10px] font-bold uppercase tracking-[0.17em] text-[#15231b]">Get extra 10% off with code “KRISH10” · Limited-time offer</div>; }
+
 export function Header({ cartCount, onOpenCart }) {
   const [compact, setCompact] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -128,7 +130,7 @@ export function Header({ cartCount, onOpenCart }) {
   }, []);
   const nav = [["/", "Home"], ["/about", "About"], ["/shop", "Shop"], ["/contact", "Contact"]];
   return (
-    <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${compact ? "bg-[#f3f6f1]/88 backdrop-blur-2xl shadow-[0_14px_40px_rgba(13,24,19,.08)]" : "bg-transparent"}`}>
+    <><PromoBar /><header className={`fixed inset-x-0 top-8 z-40 transition-all duration-500 ${compact ? "bg-[#f3f6f1]/88 backdrop-blur-2xl shadow-[0_14px_40px_rgba(13,24,19,.08)]" : "bg-transparent"}`}>
       <div className="mx-auto flex h-[84px] max-w-[1440px] items-center justify-between px-5 lg:px-9">
         <Logo inverse={transparent} />
         <nav className="hidden items-center gap-8 lg:flex">
@@ -154,7 +156,7 @@ export function Header({ cartCount, onOpenCart }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </header></>
   );
 }
 
