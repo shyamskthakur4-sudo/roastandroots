@@ -75,10 +75,10 @@ export const products = [
     rating: 5,
     reviews: 19,
     badge: "New Favourite",
-    image: "https://images.unsplash.com/photo-1573246123716-6b178e9bfc09?auto=format&fit=crop&w=1400&q=88",
+    image: "https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=1400&q=88",
     gallery: [
-      "https://images.unsplash.com/photo-1573246123716-6b178e9bfc09?auto=format&fit=crop&w=1400&q=88",
-      "https://images.unsplash.com/photo-1599599810694-cbf3c31f1d82?auto=format&fit=crop&w=1400&q=88"
+      "https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=1400&q=88",
+      "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?auto=format&fit=crop&w=1400&q=88"
     ],
     description: "A gentle honey note followed by cracked pepper and a clean roasted finish. Made for people who like their snacking unexpected.",
     tags: ["honey", "pepper", "savoury"]
