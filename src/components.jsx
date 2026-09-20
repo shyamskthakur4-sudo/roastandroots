@@ -31,13 +31,26 @@ export function ScrollDepth({ children, className = "", rotate = 0, lift = 90, s
   return <motion.div ref={ref} style={{ y, rotate: r, scale: s, transformPerspective: 1200 }} className={className}>{children}</motion.div>;
 }
 
+const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=1800&q=88";
+
 export function Parallax({ src, alt, className = "", scale = 1.12, y = 30 }) {
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const move = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-y, y]);
   const zoom = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1.02, scale]);
-  return <div ref={ref} className={`absolute inset-0 overflow-hidden ${className}`}><motion.img src={src} alt={alt} style={{ y: move, scale: zoom }} className="h-full w-full object-cover" loading="lazy" /></div>;
+  return <div ref={ref} className={`absolute inset-0 overflow-hidden ${className}`}>
+    <motion.img
+      src={src}
+      alt={alt}
+      style={{ y: move, scale: zoom }}
+      className="h-full w-full object-cover"
+      loading="eager"
+      onError={(event) => {
+        if (event.currentTarget.src !== FALLBACK_IMAGE) event.currentTarget.src = FALLBACK_IMAGE;
+      }}
+    />
+  </div>;
 }
 
 export function TiltCard({ children, className = "" }) {
@@ -58,17 +71,62 @@ export function TiltCard({ children, className = "" }) {
   return <motion.div onMouseMove={onMove} onMouseLeave={reset} className={className} style={{ rotateX: springX, rotateY: springY, transformPerspective: 1100 }} whileTap={reduce ? undefined : { scale: .985 }} transition={{ type: "spring", stiffness: 260, damping: 22 }}>{children}</motion.div>;
 }
 
-export function ProductCard({ product, onAdd, index = 0 }) {
-  return <Reveal delay={index * .04}><TiltCard className="group">
-    <Link to={`/product/${product.slug}`} className="block">
-      <div className="relative aspect-[0.88] overflow-hidden rounded-2xl bg-[#e4e8e2] shadow-[0_20px_55px_rgba(13,24,19,.08)] transition-shadow duration-500 group-hover:shadow-[0_30px_80px_rgba(13,24,19,.16)]">
-        <img src={product.image} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.06]" loading="lazy" />
-        <div className="absolute inset-x-4 top-4 flex items-center justify-between"><span className="rounded-full bg-[#f2c56e] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.17em] text-[#16251d]">{product.badge}</span><button onClick={(e)=>{e.preventDefault();onAdd(product)}} className="grid size-10 place-items-center rounded-full bg-[#0d1813] text-white opacity-0 shadow-lg transition duration-300 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d5aa55]" aria-label={`Add ${product.name} to cart`}><Plus size={18} weight="bold"/></button></div>
-        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/45 to-transparent p-5 pt-16"><span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/85">Quick view <ArrowRight size={15}/></span></div>
+export function ProductCard({ product, onAdd, index = 0, priority = false, featured = false }) {
+  return <Reveal delay={index * .04}>
+    <TiltCard className={`group h-full ${featured ? "[transform-style:preserve-3d]" : ""}`}>
+      <Link to={`/product/${product.slug}`} className="block h-full">
+        <motion.div
+          className={`relative overflow-hidden rounded-[28px] bg-[#e3e7e1] shadow-[0_24px_70px_rgba(13,24,19,.08)] ${featured ? "aspect-[.9]" : "aspect-[.86]"}`}
+          whileHover={useReducedMotion() ? undefined : { y: -5 }}
+          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.07]"
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : "auto"}
+            onError={(event) => {
+              if (event.currentTarget.src !== FALLBACK_IMAGE) event.currentTarget.src = FALLBACK_IMAGE;
+            }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,17,12,.02)_25%,rgba(7,17,12,.62)_100%)]" />
+          <div className="absolute inset-x-5 top-5 flex items-center justify-between">
+            <span className="rounded-full border border-white/30 bg-[#f2c56e] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[.19em] text-[#16251d] shadow-[0_8px_25px_rgba(0,0,0,.12)]">{product.badge}</span>
+            <button
+              onClick={(event) => { event.preventDefault(); onAdd(product); }}
+              className="grid size-11 place-items-center rounded-full border border-white/20 bg-[#0d1813]/90 text-white opacity-0 shadow-xl backdrop-blur-md transition duration-300 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d5aa55]"
+              aria-label={`Add ${product.name} to cart`}
+            >
+              <Plus size={18} weight="bold" />
+            </button>
+          </div>
+          <div className="absolute inset-x-5 bottom-5">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-[.2em] text-white/55">{product.short} · {product.weight}</p>
+                <h3 className={`mt-2 font-semibold leading-[.94] tracking-[-.05em] text-white ${featured ? "text-3xl md:text-4xl" : "text-2xl"}`}>{product.name}</h3>
+              </div>
+              <span className="grid size-11 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
+                <ArrowRight size={17} />
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      </Link>
+
+      <div className="px-1 pt-4">
+        <div className="flex items-center gap-1 text-[#d5aa55]" aria-label={`${product.rating} out of 5 stars`}>
+          {Array.from({length: 5}).map((_, i) => <Star key={i} size={12} weight="fill" />)}
+          <span className="ml-1 text-[10px] text-[#707a73]">({product.reviews})</span>
+        </div>
+        <div className="mt-2 flex items-baseline gap-2">
+          <span className="font-semibold">{money(product.price)}</span>
+          <span className="text-sm text-[#889189] line-through">{money(product.compareAt)}</span>
+        </div>
       </div>
-    </Link>
-    <div className="pt-4"><div className="mb-2 flex items-center gap-1 text-[#d5aa55]" aria-label={`${product.rating} out of 5 stars`}>{Array.from({length:5}).map((_,i)=><Star key={i} size={12} weight="fill"/>)}<span className="ml-1 text-[10px] tracking-normal text-[#707a73]">({product.reviews})</span></div><Link to={`/product/${product.slug}`} className="block"><p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#778079]">{product.short} · {product.weight}</p><h3 className="mt-2 text-[18px] font-semibold tracking-[-0.03em] text-[#101d16]">{product.name}</h3></Link><div className="mt-2 flex items-baseline gap-2"><span className="font-semibold">{money(product.price)}</span><span className="text-sm text-[#889189] line-through">{money(product.compareAt)}</span></div></div>
-  </TiltCard></Reveal>;
+    </TiltCard>
+  </Reveal>;
 }
 
 function CartIcon({ count, onClick }) {
