@@ -72,12 +72,13 @@ export function TiltCard({ children, className = "" }) {
 }
 
 export function ProductCard({ product, onAdd, index = 0, priority = false, featured = false }) {
+  const reduce = useReducedMotion();
   return <Reveal delay={index * .04}>
     <TiltCard className={`group h-full ${featured ? "[transform-style:preserve-3d]" : ""}`}>
       <Link to={`/product/${product.slug}`} className="block h-full">
         <motion.div
           className={`relative overflow-hidden rounded-[28px] bg-[#e3e7e1] shadow-[0_24px_70px_rgba(13,24,19,.08)] ${featured ? "aspect-[.9]" : "aspect-[.86]"}`}
-          whileHover={useReducedMotion() ? undefined : { y: -5 }}
+          whileHover={reduce ? undefined : { y: -5 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
         >
           <img
