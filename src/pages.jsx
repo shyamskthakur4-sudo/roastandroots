@@ -24,6 +24,42 @@ function Hero3D() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(211,174,92,.18),transparent_28%),linear-gradient(90deg,rgba(6,15,10,.95)_0%,rgba(6,15,10,.72)_34%,rgba(6,15,10,.14)_80%)]" />
       <motion.div style={{ y: orbY, x: orbX }} className="absolute right-[12%] top-[15%] hidden size-64 rounded-full border border-white/10 bg-white/[0.035] shadow-[0_0_100px_rgba(213,170,85,.12)] backdrop-blur-[3px] lg:block" />
 
+      <motion.div style={{ y: copyY, scale: copyScale }} className="relative mx-auto flex min-h-[112dvh] max-w-[1440px] items-center px-5 pb-24 pt-28 lg:px-9">
+        <div className="max-w-[820px] pr-0 lg:pr-8">
+          <Reveal>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e6c27a] backdrop-blur-md">
+              Best quality products <span className="size-1 rounded-full bg-[#e6c27a]" />
+            </div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="mt-6 max-w-[820px] text-[clamp(3.2rem,6.2vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+              Rooted in purity.<br />
+              <span className="text-[#deb76a]">Roasted to perfection.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-7 max-w-[690px] text-base leading-7 text-white/68 md:text-lg">
+              Hand-roasted premium dry fruits in small batches. No shortcuts. Just honest taste, thoughtful flavours and a better snack ritual.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Link
+                to="/shop"
+                className="magnetic-button inline-flex items-center gap-3 rounded-full bg-[#e0b867] px-6 py-3.5 font-semibold text-[#101b15] transition hover:-translate-y-1"
+              >
+                Explore the roasted collection <ArrowRight size={18} />
+              </Link>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-semibold text-white/90 backdrop-blur-md transition hover:bg-white/8"
+              >
+                How we roast
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </motion.div>
       <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-white/40 md:flex"><span className="h-px w-12 bg-white/20" /> Scroll to explore <span className="h-px w-12 bg-white/20" /></div>
     </section>
   );
