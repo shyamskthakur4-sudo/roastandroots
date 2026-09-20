@@ -9,62 +9,92 @@ function Hero3D() {
   const reduce = useReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 150]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, reduce ? 1.08 : 1.22]);
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 1.5]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -110]);
-  const copyScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : .91]);
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -210]);
-  const orbX = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 80]);
-  return (
-    <section ref={ref} className="relative min-h-[112dvh] overflow-hidden bg-[#0d1712] text-white">
-      <motion.div style={{ y: imageY, scale: imageScale, rotate: imageRotate, transformPerspective: 1400 }} className="absolute inset-[-7%]">
-        <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=2200&q=92" alt="Premium roasted nuts arranged for a tasting" className="h-full w-full object-cover" />
-      </motion.div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(211,174,92,.18),transparent_28%),linear-gradient(90deg,rgba(6,15,10,.95)_0%,rgba(6,15,10,.72)_34%,rgba(6,15,10,.14)_80%)]" />
-      <motion.div style={{ y: orbY, x: orbX }} className="absolute right-[12%] top-[15%] hidden size-64 rounded-full border border-white/10 bg-white/[0.035] shadow-[0_0_100px_rgba(213,170,85,.12)] backdrop-blur-[3px] lg:block" />
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 110]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.04, reduce ? 1.04 : 1.16]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -140]);
+  const titleScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : .92]);
+  const lineX = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 160]);
+  const lineRotate = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -4]);
 
-      <motion.div style={{ y: copyY, scale: copyScale }} className="relative mx-auto flex min-h-[112dvh] max-w-[1440px] items-center px-5 pb-24 pt-28 lg:px-9">
-        <div className="max-w-[820px] pr-0 lg:pr-8">
+  return (
+    <section ref={ref} className="relative min-h-[118dvh] overflow-hidden bg-[#0b120e] text-white">
+      <motion.div
+        style={{ y: bgY, scale: bgScale }}
+        className="absolute inset-[-6%]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=2400&q=92"
+          alt="Premium roasted snack assortment"
+          className="h-full w-full object-cover"
+        />
+      </motion.div>
+
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,11,7,.95)_0%,rgba(4,11,7,.68)_37%,rgba(4,11,7,.08)_78%),linear-gradient(180deg,rgba(4,11,7,.34)_0%,transparent_45%,rgba(4,11,7,.54)_100%)]" />
+      <motion.div
+        style={{ x: lineX, rotate: lineRotate }}
+        className="pointer-events-none absolute right-[7%] top-[18%] hidden h-[58vh] w-px bg-white/20 lg:block"
+      />
+      <div className="pointer-events-none absolute right-[6.6%] top-[18%] hidden text-[9px] uppercase tracking-[.32em] text-white/40 lg:block">
+        ROASTED / SMALL BATCH / 2026
+      </div>
+
+      <motion.div
+        style={{ y: titleY, scale: titleScale }}
+        className="relative mx-auto flex min-h-[118dvh] max-w-[1440px] items-center px-5 pb-20 pt-28 lg:px-9"
+      >
+        <div className="max-w-[900px]">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e6c27a] backdrop-blur-md">
-              Best quality products <span className="size-1 rounded-full bg-[#e6c27a]" />
-            </div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h1 className="mt-6 max-w-[820px] text-[clamp(3.2rem,6.2vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
-              Rooted in purity.<br />
-              <span className="text-[#deb76a]">Roasted to perfection.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-7 max-w-[690px] text-base leading-7 text-white/68 md:text-lg">
-              Hand-roasted premium dry fruits in small batches. No shortcuts. Just honest taste, thoughtful flavours and a better snack ritual.
+            <p className="text-[10px] font-bold uppercase tracking-[.28em] text-[#e3c079]">
+              Roast & Root · Premium dry fruits
             </p>
           </Reveal>
+
+          <Reveal delay={0.08}>
+            <h1 className="mt-7 text-[clamp(3.8rem,7.8vw,8.6rem)] font-semibold leading-[.82] tracking-[-.085em]">
+              Rooted
+              <span className="block pl-[7vw] text-[#e0b867]">in purity.</span>
+              <span className="block">Roasted</span>
+              <span className="block pl-[11vw] text-white/92">to perfection.</span>
+            </h1>
+          </Reveal>
+
+          <Reveal delay={0.16}>
+            <div className="mt-10 flex max-w-2xl flex-col gap-6 md:flex-row md:items-end">
+              <p className="max-w-xl text-base leading-7 text-white/70 md:text-lg">
+                Hand-roasted premium dry fruits in small batches. No shortcuts, no clutter — just a better snack ritual.
+              </p>
+              <span className="hidden shrink-0 pb-1 text-[10px] uppercase tracking-[.2em] text-white/35 md:block">
+                Scroll / explore
+              </span>
+            </div>
+          </Reveal>
+
           <Reveal delay={0.24}>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 to="/shop"
-                className="magnetic-button inline-flex items-center gap-3 rounded-full bg-[#e0b867] px-6 py-3.5 font-semibold text-[#101b15] transition hover:-translate-y-1"
+                className="inline-flex items-center gap-3 rounded-full bg-[#e0b867] px-7 py-4 font-semibold text-[#101b15] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(224,184,103,.18)]"
               >
-                Explore the roasted collection <ArrowRight size={18} />
+                Explore the collection <ArrowRight size={18} />
               </Link>
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-semibold text-white/90 backdrop-blur-md transition hover:bg-white/8"
+                className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/[.04] px-7 py-4 font-semibold text-white/92 backdrop-blur-md transition hover:bg-white/[.09]"
               >
-                How we roast
+                Our roasting story
               </Link>
             </div>
           </Reveal>
         </div>
       </motion.div>
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-white/40 md:flex"><span className="h-px w-12 bg-white/20" /> Scroll to explore <span className="h-px w-12 bg-white/20" /></div>
+
+      <div className="absolute bottom-8 left-5 flex items-center gap-3 text-[9px] uppercase tracking-[.28em] text-white/35 lg:left-9">
+        <span className="h-px w-10 bg-white/20" />
+        Scroll to explore
+      </div>
     </section>
   );
 }
-
 function EditorialBand() {
   return <section className="overflow-hidden border-b border-[#d9dfd8] bg-[#f3f6f1] py-5"><div className="marquee-track flex min-w-max items-center gap-8 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#5b675f]"><span>Small batch roast</span><span>•</span><span>Thoughtful ingredients</span><span>•</span><span>Big crunch</span><span>•</span><span>Made for everyday rituals</span><span>•</span><span>Small batch roast</span><span>•</span><span>Thoughtful ingredients</span><span>•</span></div></section>;
 }
