@@ -106,74 +106,81 @@ export function HomePage({ onAdd }) {
       <EditorialBand />
 
       <main>
-        <section className="relative overflow-hidden bg-[#f3f4ef] py-28 lg:py-40">
-          <div className="absolute inset-x-0 top-0 h-px bg-[#0f1914]/10" />
-          <div className="pointer-events-none absolute left-[-12rem] top-20 size-[30rem] rounded-full border border-[#0d1813]/[.05]" />
-          <div className="pointer-events-none absolute right-[-10rem] bottom-0 size-[34rem] rounded-full border border-[#d5aa55]/[.10]" />
-
-          <div className="relative mx-auto max-w-[1440px] px-5 lg:px-9">
-            <div className="grid gap-12 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+        <section className="relative overflow-hidden bg-[#f1f3ee] py-28 lg:py-44">
+          <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
+            <div className="grid gap-12 lg:grid-cols-[.42fr_1.58fr] lg:items-start">
               <Reveal>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[.28em] text-[#7a857c]">Signature lineup</p>
-                  <h2 className="mt-4 max-w-lg text-[clamp(3.2rem,5.6vw,6.3rem)] font-semibold leading-[.88] tracking-[-.08em]">The jars that disappear first.</h2>
-                  <p className="mt-6 max-w-md text-base leading-7 text-[#667068]">Four signature products, presented as objects rather than a flat catalogue.</p>
-                  <Link to="/shop" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold">See the full collection <ArrowRight size={17}/></Link>
+                <div className="lg:sticky lg:top-32">
+                  <p className="text-[10px] font-bold uppercase tracking-[.3em] text-[#7b857e]">Signature lineup</p>
+                  <h2 className="mt-5 max-w-[440px] text-[clamp(3.6rem,6vw,7rem)] font-semibold leading-[.82] tracking-[-.085em]">
+                    Four objects.<br />
+                    <span className="text-[#c39a4c]">No filler.</span>
+                  </h2>
+                  <p className="mt-7 max-w-sm text-base leading-7 text-[#667069]">
+                    A deliberately art-directed product scene instead of a standard ecommerce grid.
+                  </p>
+                  <Link to="/shop" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold">
+                    Explore all products <ArrowRight size={17}/>
+                  </Link>
                 </div>
               </Reveal>
 
-              <div className="flex items-end justify-between gap-8 border-b border-[#d5dbd5] pb-5">
-                <span className="text-[10px] font-bold uppercase tracking-[.24em] text-[#879188]">01 — 04</span>
-                <span className="max-w-xs text-right text-[11px] leading-5 text-[#788279]">Scroll through the lineup. Each product has its own depth and rhythm.</span>
+              <div className="relative min-h-[860px] [perspective:1800px]">
+                <ScrollDepth lift={80} rotate={-1.8} scale={1.02} className="absolute left-0 top-0 w-[54%]">
+                  <ProductCard product={products[0]} onAdd={onAdd} index={0} priority featured />
+                </ScrollDepth>
+
+                <ScrollDepth lift={145} rotate={2.4} scale={1.035} className="absolute right-[4%] top-[7%] w-[42%]">
+                  <ProductCard product={products[1]} onAdd={onAdd} index={1} priority />
+                </ScrollDepth>
+
+                <ScrollDepth lift={100} rotate={-2.1} scale={1.025} className="absolute left-[9%] top-[52%] w-[40%]">
+                  <ProductCard product={products[2]} onAdd={onAdd} index={2} priority />
+                </ScrollDepth>
+
+                <ScrollDepth lift={170} rotate={2.8} scale={1.035} className="absolute right-0 top-[44%] w-[44%]">
+                  <ProductCard product={products[3]} onAdd={onAdd} index={3} priority />
+                </ScrollDepth>
+
+                <div className="pointer-events-none absolute inset-0">
+                  <div className="absolute left-[47%] top-[39%] h-px w-[17%] rotate-[18deg] bg-[#0d1813]/10" />
+                  <div className="absolute right-[20%] top-[62%] h-px w-[15%] -rotate-[16deg] bg-[#d5aa55]/30" />
+                </div>
               </div>
-            </div>
-
-            <div className="mt-16 grid gap-6 md:grid-cols-12 [perspective:1800px]">
-              <ScrollDepth lift={95} rotate={-2.8} scale={1.035} className="md:col-span-7 md:row-span-2">
-                <ProductCard product={products[0]} onAdd={onAdd} index={0} priority featured />
-              </ScrollDepth>
-
-              <ScrollDepth lift={135} rotate={2.2} scale={1.03} className="md:col-span-5">
-                <ProductCard product={products[1]} onAdd={onAdd} index={1} priority />
-              </ScrollDepth>
-
-              <ScrollDepth lift={75} rotate={-1.8} scale={1.03} className="md:col-span-5">
-                <ProductCard product={products[2]} onAdd={onAdd} index={2} priority />
-              </ScrollDepth>
-
-              <ScrollDepth lift={115} rotate={2.6} scale={1.03} className="md:col-span-5 md:ml-14">
-                <ProductCard product={products[3]} onAdd={onAdd} index={3} priority />
-              </ScrollDepth>
             </div>
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-[#101812] py-28 text-white lg:py-40">
-          <div className="absolute inset-0 opacity-[.18] bg-[radial-gradient(circle_at_20%_20%,#d5aa55,transparent_23%),radial-gradient(circle_at_84%_72%,#6b8e73,transparent_25%)]" />
-          <div className="relative mx-auto max-w-[1440px] px-5 lg:px-9">
-            <div className="grid gap-14 lg:grid-cols-[.7fr_1.3fr] lg:items-start">
-              <Reveal>
-                <div className="lg:sticky lg:top-32">
-                  <p className="text-[10px] font-bold uppercase tracking-[.28em] text-white/40">Shop by mood</p>
-                  <h2 className="mt-4 text-[clamp(3rem,5vw,5.5rem)] font-semibold leading-[.9] tracking-[-.075em]">Four worlds.<br/><span className="text-[#e0b867]">One roast.</span></h2>
-                  <p className="mt-6 max-w-sm text-base leading-7 text-white/55">Move through the collections as visual chapters instead of repeating product cards.</p>
-                </div>
-              </Reveal>
-              <div className="space-y-16 [perspective:1800px]">
+        <section className="relative overflow-hidden bg-[#0d1712] py-28 text-white lg:py-44">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(213,170,85,.12),transparent_22%),radial-gradient(circle_at_82%_74%,rgba(116,153,126,.12),transparent_24%)]" />
+          <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
+            <div className="grid gap-20 lg:grid-cols-[.48fr_1.52fr]">
+              <div className="lg:sticky lg:top-32 lg:self-start">
+                <Reveal>
+                  <p className="text-[10px] font-bold uppercase tracking-[.3em] text-white/35">Collections</p>
+                  <h2 className="mt-5 text-[clamp(3.5rem,6vw,7rem)] font-semibold leading-[.8] tracking-[-.08em]">Enter a<br/><span className="text-[#e0b867]">different mood.</span></h2>
+                  <p className="mt-7 max-w-sm text-base leading-7 text-white/50">Scroll through oversized visual chapters. No card grid. No repeated composition.</p>
+                </Reveal>
+              </div>
+
+              <div className="space-y-24 [perspective:2000px]">
                 {collections.map((item,index)=>(
-                  <ScrollDepth key={item.slug} lift={110 + index * 20} rotate={index % 2 ? 2 : -2} scale={1.035}>
-                    <TiltCard>
-                      <Link to={`/collection/${item.slug}`} className="group relative block min-h-[520px] overflow-hidden rounded-[36px] border border-white/10 bg-white/[.03]">
-                        <Parallax src={item.image} alt={item.title} scale={1.15} y={44}/>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"/>
-                        <div className="relative flex min-h-[520px] flex-col justify-end p-7 lg:p-10">
-                          <div className="flex items-end justify-between gap-6">
-                            <div className="max-w-2xl">
-                              <div className="text-[9px] font-bold uppercase tracking-[.25em] text-[#e0b867]">{String(index+1).padStart(2,"0")} · {item.eyebrow}</div>
-                              <h3 className="mt-3 text-5xl font-semibold leading-[.88] tracking-[-.07em] md:text-7xl">{item.title}</h3>
-                            </div>
-                            <span className="grid size-14 shrink-0 place-items-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition duration-500 group-hover:rotate-45 group-hover:bg-[#e0b867] group-hover:text-[#111a14]"><ArrowRight size={19}/></span>
+                  <ScrollDepth key={item.slug} lift={110 + index*24} rotate={index%2 ? 2.6 : -2.6} scale={1.025}>
+                    <TiltCard className="group">
+                      <Link to={`/collection/${item.slug}`} className="relative block min-h-[620px] overflow-hidden rounded-[38px] border border-white/10 bg-white/[.025] shadow-[0_50px_120px_rgba(0,0,0,.28)] lg:min-h-[700px]">
+                        <Parallax src={item.image} alt={item.title} scale={1.17} y={48}/>
+                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.06)_20%,rgba(0,0,0,.2)_45%,rgba(0,0,0,.92)_100%)]"/>
+                        <div className="absolute left-7 top-7 rounded-full border border-white/15 bg-black/20 px-4 py-2 text-[9px] font-bold uppercase tracking-[.25em] text-white/70 backdrop-blur-md">
+                          0{index+1} / {item.eyebrow}
+                        </div>
+                        <div className="absolute inset-x-7 bottom-7 flex items-end justify-between gap-8 lg:inset-x-10 lg:bottom-10">
+                          <div className="max-w-3xl">
+                            <h3 className="text-[clamp(3rem,6vw,7.4rem)] font-semibold leading-[.84] tracking-[-.085em]">{item.title}</h3>
+                            <p className="mt-5 max-w-xl text-sm leading-6 text-white/62 lg:text-base">{item.description}</p>
                           </div>
+                          <span className="grid size-16 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[.08] backdrop-blur-xl transition duration-500 group-hover:rotate-45 group-hover:bg-[#e0b867] group-hover:text-[#101812]">
+                            <ArrowRight size={20}/>
+                          </span>
                         </div>
                       </Link>
                     </TiltCard>
@@ -186,28 +193,24 @@ export function HomePage({ onAdd }) {
 
         <ValueProps />
 
-        <section className="relative overflow-hidden bg-[#f4f6f1] py-28 lg:py-40">
-          <div className="relative mx-auto max-w-[1440px] px-5 lg:px-9">
-            <div className="grid gap-16 lg:grid-cols-[.62fr_1.38fr] lg:items-start">
+        <section className="relative overflow-hidden bg-[#f6f6f1] py-28 lg:py-44">
+          <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
+            <div className="grid gap-16 lg:grid-cols-[.45fr_1.55fr] lg:items-start">
               <Reveal>
                 <div className="lg:sticky lg:top-32">
-                  <p className="text-[10px] font-bold uppercase tracking-[.28em] text-[#7a857c]">Current favourites</p>
-                  <h2 className="mt-4 text-[clamp(3.2rem,5.4vw,6rem)] font-semibold leading-[.86] tracking-[-.08em]">A product wall with actual depth.</h2>
-                  <p className="mt-6 max-w-sm text-base leading-7 text-[#667068]">The smaller collection shifts vertically as you scroll, with each object sitting on a different plane.</p>
-                  <div className="mt-10 grid max-w-sm grid-cols-3 border-y border-[#d8ded8] py-4 text-center">
-                    <div><div className="text-xl font-semibold">04</div><div className="mt-1 text-[9px] uppercase tracking-[.16em] text-[#8a938c]">roasts</div></div>
-                    <div className="border-x border-[#d8ded8]"><div className="text-xl font-semibold">5★</div><div className="mt-1 text-[9px] uppercase tracking-[.16em] text-[#8a938c]">reviews</div></div>
-                    <div><div className="text-xl font-semibold">∞</div><div className="mt-1 text-[9px] uppercase tracking-[.16em] text-[#8a938c]">crunch</div></div>
-                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-[.3em] text-[#7b857e]">Current favourites</p>
+                  <h2 className="mt-5 text-[clamp(3.5rem,5.8vw,6.8rem)] font-semibold leading-[.82] tracking-[-.085em]">
+                    Keep the good ones close.
+                  </h2>
+                  <p className="mt-7 max-w-sm text-base leading-7 text-[#667069]">A second, more kinetic product moment with a deeper vertical rhythm.</p>
                 </div>
               </Reveal>
 
-              <div className="grid gap-8 md:grid-cols-2 [perspective:1900px]">
+              <div className="grid min-h-[1050px] grid-cols-12 gap-6 [perspective:1800px]">
                 {products.slice(2,6).map((p,i)=>(
-                  <ScrollDepth key={p.id} lift={100 + i * 18} rotate={i%2 ? -3 : 2.2} scale={1.045}>
-                    <div className={`relative ${i===1 ? "md:mt-24" : i===2 ? "md:-mt-10" : i===3 ? "md:mt-14" : ""}`}>
-                      <ProductCard product={p} onAdd={onAdd} index={i} priority />
-                    </div>
+                  <ScrollDepth key={p.id} lift={120+i*24} rotate={i%2 ? -3 : 2.2} scale={1.035}
+                    className={i===0 ? "col-span-7 mt-16" : i===1 ? "col-span-5" : i===2 ? "col-span-5 -mt-8" : "col-span-7 mt-28"}>
+                    <ProductCard product={p} onAdd={onAdd} index={i} priority featured={i===0 || i===3}/>
                   </ScrollDepth>
                 ))}
               </div>
@@ -215,28 +218,30 @@ export function HomePage({ onAdd }) {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-[#d7e0d7] py-28 lg:py-36">
+        <section className="relative overflow-hidden bg-[#d8e1d8] py-28 lg:py-40">
           <div className="mx-auto max-w-[1440px] px-5 lg:px-9">
-            <div className="grid gap-14 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+            <div className="grid gap-14 lg:grid-cols-[.78fr_1.22fr] lg:items-center">
               <Reveal>
                 <div className="max-w-xl">
-                  <p className="text-[10px] font-bold uppercase tracking-[.28em] text-[#6e7a71]">The roast ritual</p>
-                  <h2 className="mt-4 text-[clamp(3rem,5vw,5.8rem)] font-semibold leading-[.9] tracking-[-.07em]">From snack break to small ritual.</h2>
+                  <p className="text-[10px] font-bold uppercase tracking-[.3em] text-[#6e7a71]">The roast ritual</p>
+                  <h2 className="mt-5 text-[clamp(3.3rem,5.5vw,6.3rem)] font-semibold leading-[.84] tracking-[-.08em]">From snack break to small ritual.</h2>
                   <p className="mt-7 max-w-md text-base leading-7 text-[#59675e]">Roast. Season. Pause. Repeat.</p>
-                  <Link to="/about" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#101812] px-6 py-3.5 font-semibold text-white transition hover:-translate-y-1">Our story <ArrowRight size={17}/></Link>
+                  <Link to="/about" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#101812] px-6 py-3.5 font-semibold text-white transition hover:-translate-y-1">
+                    Our story <ArrowRight size={17}/>
+                  </Link>
                 </div>
               </Reveal>
-              <ScrollDepth lift={100} rotate={-2.4} scale={1.05}>
-                <div className="relative min-h-[560px] [transform-style:preserve-3d]">
-                  <div className="absolute left-0 top-0 h-[78%] w-[65%] overflow-hidden rounded-[34px] shadow-[0_35px_90px_rgba(13,24,19,.18)]">
-                    <Parallax src="https://images.unsplash.com/photo-1599599810694-cbf3c31f1d82?auto=format&fit=crop&w=1500&q=90" alt="Premium cashews" scale={1.15} y={42}/>
+              <ScrollDepth lift={100} rotate={-2.8} scale={1.05}>
+                <div className="relative min-h-[640px] [transform-style:preserve-3d]">
+                  <div className="absolute left-0 top-0 h-[72%] w-[62%] overflow-hidden rounded-[38px] shadow-[0_50px_120px_rgba(13,24,19,.18)]">
+                    <Parallax src={products[0].gallery[1]} alt={products[0].name} scale={1.15} y={48}/>
                   </div>
-                  <div className="absolute bottom-0 right-0 h-[68%] w-[62%] overflow-hidden rounded-[34px] shadow-[0_35px_90px_rgba(13,24,19,.18)]">
-                    <Parallax src="https://images.unsplash.com/photo-1574226516831-e1dff420e37f?auto=format&fit=crop&w=1500&q=90" alt="Roasted almonds" scale={1.13} y={35}/>
+                  <div className="absolute bottom-0 right-0 h-[67%] w-[60%] overflow-hidden rounded-[38px] shadow-[0_50px_120px_rgba(13,24,19,.18)]">
+                    <Parallax src={products[4].gallery[0]} alt={products[4].name} scale={1.14} y={40}/>
                   </div>
-                  <div className="absolute left-[45%] top-[38%] z-10 rounded-[24px] bg-[#f7f4ea]/88 px-5 py-4 text-[#15231b] shadow-2xl backdrop-blur-xl" style={{ transform: "translateZ(85px)" }}>
-                    <div className="text-[9px] font-bold uppercase tracking-[.2em] text-[#7a837c]">Small batch</div>
-                    <div className="mt-1 text-xl font-semibold tracking-[-.04em]">Roasted with intent.</div>
+                  <div className="absolute left-[42%] top-[38%] z-10 rounded-[26px] border border-white/50 bg-[#f7f3e9]/90 px-6 py-5 text-[#15231b] shadow-2xl backdrop-blur-xl" style={{transform:"translateZ(95px)"}}>
+                    <div className="text-[9px] font-bold uppercase tracking-[.24em] text-[#798279]">Small batch</div>
+                    <div className="mt-1 text-2xl font-semibold tracking-[-.05em]">Roasted with intent.</div>
                   </div>
                 </div>
               </ScrollDepth>
@@ -244,13 +249,28 @@ export function HomePage({ onAdd }) {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-5 py-28 lg:px-9 lg:py-36">
+        <section className="mx-auto max-w-[1440px] px-5 py-28 lg:px-9 lg:py-40">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <SectionTitle eyebrow="Customer notes" title="The crunch gets the last word." />
-            <span className="text-[10px] uppercase tracking-[.24em] text-[#7b857e]">03 verified buyers</span>
+            <span className="text-[10px] uppercase tracking-[.25em] text-[#7b857e]">03 verified buyers</span>
           </div>
-          <div className="mt-16 grid gap-7 md:grid-cols-3 [perspective:1500px]">
-            {reviews.map((item,i)=><ScrollDepth key={item.name} lift={60} rotate={i===1?2:-1.5}><Reveal delay={i*.07}><TiltCard><blockquote className="flex min-h-[320px] flex-col justify-between rounded-[28px] border border-[#d4dbd4] bg-white p-7 shadow-[0_20px_60px_rgba(13,24,19,.05)]"><div><Quotes size={26} className="text-[#d5aa55]"/><p className="mt-7 text-2xl font-medium leading-[1.25] tracking-[-.04em]">“{item.quote}”</p></div><footer className="border-t border-[#e1e5e1] pt-4"><div className="text-sm font-semibold">{item.name}</div><div className="mt-1 text-[10px] uppercase tracking-[.17em] text-[#7c857e]">{item.role}</div></footer></blockquote></TiltCard></Reveal></ScrollDepth>)}
+          <div className="mt-16 grid gap-7 md:grid-cols-3 [perspective:1700px]">
+            {reviews.map((item,i)=>(
+              <ScrollDepth key={item.name} lift={70} rotate={i===1?2.4:-1.8}>
+                <TiltCard>
+                  <blockquote className="flex min-h-[330px] flex-col justify-between rounded-[30px] border border-[#d4dbd4] bg-white p-8 shadow-[0_25px_75px_rgba(13,24,19,.06)]">
+                    <div>
+                      <Quotes size={26} className="text-[#d5aa55]"/>
+                      <p className="mt-7 text-2xl font-medium leading-[1.2] tracking-[-.045em]">“{item.quote}”</p>
+                    </div>
+                    <footer className="border-t border-[#e0e5e0] pt-4">
+                      <div className="text-sm font-semibold">{item.name}</div>
+                      <div className="mt-1 text-[10px] uppercase tracking-[.17em] text-[#7c857e]">{item.role}</div>
+                    </footer>
+                  </blockquote>
+                </TiltCard>
+              </ScrollDepth>
+            ))}
           </div>
         </section>
       </main>
